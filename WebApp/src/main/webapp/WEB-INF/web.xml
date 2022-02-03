@@ -49,6 +49,4 @@
         <servlet-name>commentServlet</servlet-name>
         <url-pattern>/comment</url-pattern>
     </servlet-mapping>
-
-
 </web-app>
