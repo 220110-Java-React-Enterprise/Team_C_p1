@@ -1,17 +1,16 @@
 import java.lang.reflect.Field;
 
 public class SQLScriptor implements CRUD<Object>{
+    StringBuilder sb = new StringBuilder();
     @Override
     public String createSQLTable(Object o) {
-        StringBuilder sb = new StringBuilder();
-        
         sb.append("CREATE TABLE ");
         String className = o.getClass().getCanonicalName();
         sb.append(className);
         sb.append(" (");
 
         Field[] fields = o.getClass().getDeclaredFields();
-        for( int i = 0; 1 < fields.length; i++) {
+        for( int i = 0; i < fields.length; i++) {
             if (fields[i].getType().getSimpleName().equals("Integer")) {
                 String intString;
                 if (i == fields.length - 1) {
@@ -37,7 +36,30 @@ public class SQLScriptor implements CRUD<Object>{
 
     @Override
     public String insertSQLByTableId(Object o) {
-        return null;
+        sb.append("INSERT INTO ");
+        String tableName = o.getClass().getCanonicalName();
+        sb.append(tableName);
+        sb.append(" (");
+        Field[] fields = o.getClass().getDeclaredFields();
+        for( int i = 0; i < fields.length; i++) {
+                if (i == fields.length - 1) {
+                    sb.append(fields[i].getName());
+                } else {
+                    sb.append(fields[i].getName() + ", ");
+
+                }
+            }
+        sb.append(") VALUES (");
+        for(int i = 0; i < fields.length;i++) {
+            if (i == (fields.length - 1)) {
+                sb.append(" ?");
+            } else {
+                sb.append(" ?,");
+            }
+        }
+        String lastPart = ");";
+        sb.append(lastPart);
+        return sb.toString();
     }
 
     @Override
