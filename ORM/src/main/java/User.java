@@ -1,6 +1,6 @@
 public class User {
 
-    @UserPK(fieldName = "pk")
+    @CustomFieldAnnotation(fieldName = "pk")
     private Integer userId;
     private String firstName;
     private String lastname;
@@ -20,6 +20,7 @@ public class User {
     public Integer getUserId() {
         return userId;
     }
+
 
     public void setUserId(Integer userId) {
         this.userId = userId;
