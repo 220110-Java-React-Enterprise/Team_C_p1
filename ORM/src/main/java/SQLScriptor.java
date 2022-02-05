@@ -70,17 +70,37 @@ public class SQLScriptor implements CRUD<Object>{
         sb.append(" WHERE ");
         Field[] fields = o.getClass().getDeclaredFields();
         for(Field field: fields){
-            if(field.isAnnotationPresent(UserPK.class)){
+            if(field.isAnnotationPresent(CustomFieldAnnotation.class)){
+
                 sb.append(field.getName());
             }
         }
-        sb.append(" = ?");
+        sb.append(" = ?;");
         return sb.toString();
     }
 
     @Override
-    public String updateSQLTable(Object o) {
-        return null;
+    public String updateSQLTable(Object o, String columnName) {
+
+//        "UPDATE customers SET account_id = ? WHERE customer_id = ?"
+            sb.append("UPDATE ");
+            String tableName  = o.getClass().getCanonicalName();
+            sb.append(tableName);
+            sb.append(" SET ");
+            sb.append(columnName);
+            sb.append(" = ? WHERE ");
+
+        Field[] fields = o.getClass().getDeclaredFields();
+        for(Field field: fields){
+            if(field.isAnnotationPresent(CustomFieldAnnotation.class)){
+
+                sb.append(field.getName());
+            }
+        }
+
+        sb.append(" = ?;");
+
+        return sb.toString();
     }
 
     @Override
