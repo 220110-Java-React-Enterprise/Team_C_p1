@@ -1,6 +1,6 @@
 public class User {
 
-    //@CustomFieldAnnotation(fieldName = "pk")
+    @UserPK(fieldName = "pk")
     private Integer userId;
     private String firstName;
     private String lastname;

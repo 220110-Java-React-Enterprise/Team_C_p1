@@ -64,7 +64,18 @@ public class SQLScriptor implements CRUD<Object>{
 
     @Override
     public String readSQLTable(Object o) {
-        return null;
+        sb.append("SELECT * FROM ");
+        String tableName = o.getClass().getCanonicalName();
+        sb.append(tableName);
+        sb.append(" WHERE ");
+        Field[] fields = o.getClass().getDeclaredFields();
+        for(Field field: fields){
+            if(field.isAnnotationPresent(UserPK.class)){
+                sb.append(field.getName());
+            }
+        }
+        sb.append(" = ?");
+        return sb.toString();
     }
 
     @Override
