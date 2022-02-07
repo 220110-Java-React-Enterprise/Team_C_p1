@@ -2,6 +2,9 @@ import java.lang.reflect.Field;
 
 public class SQLScriptor implements CRUD<Object>{
     StringBuilder sb = new StringBuilder();
+    private Object o;
+    private String columnName;
+
     @Override
     public String createSQLTable(Object o) {
         sb.append("CREATE TABLE ");
@@ -103,8 +106,33 @@ public class SQLScriptor implements CRUD<Object>{
         return sb.toString();
     }
 
+
+
     @Override
     public String deleteSQLTable(Object o) {
-        return null;
+        this.o = o;
+        this.columnName = columnName;
+
+//        "DELETE customers SET account_id = ? WHERE customer_id = ?"
+        sb.append("DELETE ");
+        String tableName  = o.getClass().getCanonicalName();
+        sb.append(tableName);
+        sb.append(" SET ");
+        sb.append(columnName);
+        sb.append(" = ? WHERE ");
+
+        Field[] fields = o.getClass().getDeclaredFields();
+        for(Field field: fields){
+            if(field.isAnnotationPresent(CustomFieldAnnotation.class)){
+
+                sb.append(field.getName());
+            }
+        }
+
+        sb.append(" = ?;");
+
+        return sb.toString();
     }
-}
+
+
+    }
