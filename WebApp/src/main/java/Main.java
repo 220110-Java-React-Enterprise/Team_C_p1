@@ -1,12 +1,8 @@
 import java.sql.SQLException;
 
 public class Main {
-<<<<<<< HEAD
-        public static void main(String ...args){
-=======
-
         public static void main(String ...args) {
->>>>>>> 51525ef4e256de5134ed4dc9262d3d540dff6351
+
             System.out.println("This is working!!!!!!!!!!");
             logMessage("This is our message");
             methodOne();
@@ -31,11 +27,4 @@ public class Main {
             public static void logException(Exception e){
                 FileLogger.getFileLogger().log(e);
         }
-<<<<<<< HEAD
-=======
-
-
-
-
->>>>>>> 51525ef4e256de5134ed4dc9262d3d540dff6351
 }
