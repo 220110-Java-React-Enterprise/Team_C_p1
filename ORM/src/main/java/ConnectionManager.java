@@ -19,6 +19,7 @@ public class ConnectionManager {
         return connectionManager;
     }
 
+
     public static Connection getConnection(){
         if(connection == null){
             connection = connect();
