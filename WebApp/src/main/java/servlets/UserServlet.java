@@ -36,6 +36,7 @@ public class UserServlet extends HttpServlet {
     protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         ObjectMapper mapper = new ObjectMapper();
         UserObject payload = mapper.readValue(req.getInputStream(), UserObject.class);
+        UserStore.setUserObject(payload);
         //UserStore.updateUser(payload);
         resp.setStatus(203);
         resp.getWriter().print("There has been a change to the users information.");

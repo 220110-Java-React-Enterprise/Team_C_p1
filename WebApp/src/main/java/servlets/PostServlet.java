@@ -35,6 +35,7 @@ public class PostServlet extends HttpServlet {
     protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         ObjectMapper mapper = new ObjectMapper();
         PostObject payload = mapper.readValue(req.getInputStream(), PostObject.class);
+        PostStore.setPostObj(payload);
         //PostStore.updatePost(payload);
         resp.setStatus(203);
         resp.getWriter().print("The user has updated their post.");

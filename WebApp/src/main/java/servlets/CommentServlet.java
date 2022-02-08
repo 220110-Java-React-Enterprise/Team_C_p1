@@ -35,6 +35,7 @@ public class CommentServlet extends HttpServlet {
     protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         ObjectMapper mapper = new ObjectMapper();
         CommentObject payload = mapper.readValue(req.getInputStream(), CommentObject.class);
+        CommentStore.setCommentObj(payload);
         //CommentStore.updateComment(payload);
         resp.setStatus(203);
         resp.getWriter().print("There has been a change to the comment.");

@@ -38,6 +38,7 @@ public class AccountServlet extends HttpServlet {
         ObjectMapper mapper = new ObjectMapper();
         AccountObject payload = mapper.readValue(req.getInputStream(), AccountObject.class);
         //AccountStore.updateAccount(payload);
+        AccountStore.setAccountObj(payload);
         resp.setStatus(203);
         resp.getWriter().print("There has been a change to the accounts information.");
     }
