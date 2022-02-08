@@ -14,7 +14,6 @@ import java.io.IOException;
 public class AccountServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-//        super.doGet(req, resp);
         AccountObject accountObj = AccountStore.getAccountObj();
         ObjectMapper mapper = new ObjectMapper();
         String Json = mapper.writeValueAsString(accountObj);
@@ -24,7 +23,10 @@ public class AccountServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        super.doPost(req, resp);
+        ObjectMapper mapper = new ObjectMapper();
+        AccountObject payload = mapper.readValue(req.getInputStream(), AccountObject.class);
+        AccountStore.setAccountObj(payload);
+        resp.setStatus(203);
     }
 
     @Override
