@@ -1,8 +1,8 @@
 package servlets;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import utils.AccountObject;
-import utils.AccountStore;
+import Account.AccountObject;
+import Account.AccountStore;
 
 
 import javax.servlet.ServletException;

@@ -1,4 +1,4 @@
-package utils;
+package Post;
 
 public class PostStore {
     private static PostObject postObj;

@@ -1,8 +1,8 @@
 package servlets;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import utils.CommentObject;
-import utils.CommentStore;
+import Comment.CommentObject;
+import Comment.CommentStore;
 
 
 import javax.servlet.ServletException;

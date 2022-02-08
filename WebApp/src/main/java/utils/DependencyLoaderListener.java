@@ -1,4 +1,4 @@
-package servlets;
+package utils;
 
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;

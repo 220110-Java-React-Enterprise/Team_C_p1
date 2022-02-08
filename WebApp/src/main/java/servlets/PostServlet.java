@@ -1,8 +1,8 @@
 package servlets;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import utils.PostObject;
-import utils.PostStore;
+import Post.PostObject;
+import Post.PostStore;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;

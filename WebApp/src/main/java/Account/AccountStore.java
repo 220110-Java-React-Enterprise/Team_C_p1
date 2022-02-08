@@ -1,4 +1,4 @@
-package utils;
+package Account;
 
 public class AccountStore {
     private static AccountObject accountObj;

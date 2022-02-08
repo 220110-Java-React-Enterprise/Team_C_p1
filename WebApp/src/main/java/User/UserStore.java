@@ -1,4 +1,4 @@
-package utils;
+package User;
 
 public class UserStore {
     private static UserObject userObject;
