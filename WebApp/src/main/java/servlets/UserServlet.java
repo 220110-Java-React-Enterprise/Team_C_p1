@@ -21,12 +21,14 @@ public class UserServlet extends HttpServlet {
         String Json = mapper.writeValueAsString(newUser);
         resp.getWriter().print(Json);
         resp.setStatus(200);
-
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        super.doPost(req, resp);
+        ObjectMapper mapper = new ObjectMapper();
+        UserObject payload = mapper.readValue(req.getInputStream(), UserObject.class);
+        UserStore.setUserObject(payload);
+        resp.setStatus(203);
     }
 
     @Override

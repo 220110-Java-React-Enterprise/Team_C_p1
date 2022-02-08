@@ -14,7 +14,6 @@ import java.io.IOException;
 public class CommentServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-//        super.doGet(req, resp);
         CommentObject commentObj = CommentStore.getCommentObj();
         ObjectMapper mapper = new ObjectMapper();
         String Json = mapper.writeValueAsString(commentObj);
@@ -24,7 +23,10 @@ public class CommentServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        super.doPost(req, resp);
+        ObjectMapper mapper = new ObjectMapper();
+        CommentObject payload = mapper.readValue(req.getInputStream(), CommentObject.class);
+        CommentStore.setCommentObj(payload);
+        resp.setStatus(203);
     }
 
     @Override

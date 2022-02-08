@@ -5,7 +5,6 @@ public class CommentObject {
     private String message;
     private Integer postId;//(FK)
 
-
     public CommentObject() {
     }
 

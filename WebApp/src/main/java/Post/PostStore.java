@@ -11,7 +11,7 @@ public class PostStore {
         return postObj;
     }
 
-    public static void setAccountObj(PostObject postObj) {
+    public static void setPostObj(PostObject postObj) {
         PostStore.postObj = postObj;
     }
 }

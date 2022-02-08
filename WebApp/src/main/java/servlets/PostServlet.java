@@ -1,5 +1,7 @@
 package servlets;
 
+import Account.AccountObject;
+import Account.AccountStore;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import Post.PostObject;
 import Post.PostStore;
@@ -24,7 +26,10 @@ public class PostServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        super.doPost(req, resp);
+        ObjectMapper mapper = new ObjectMapper();
+        PostObject payload = mapper.readValue(req.getInputStream(), PostObject.class);
+        PostStore.setPostObj(payload);
+        resp.setStatus(203);
     }
 
     @Override

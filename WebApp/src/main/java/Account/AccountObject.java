@@ -5,7 +5,6 @@ public class AccountObject {
     private String email;
     private String password;
 
-
     public AccountObject(){
 
     }
