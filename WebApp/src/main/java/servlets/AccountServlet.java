@@ -1,6 +1,8 @@
 package servlets;
 
 import Comment.CommentStore;
+import Post.PostObject;
+import User.UserObject;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import Account.AccountObject;
 import Account.AccountStore;
@@ -33,7 +35,11 @@ public class AccountServlet extends HttpServlet {
 
     @Override
     protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        super.doPut(req, resp);
+        ObjectMapper mapper = new ObjectMapper();
+        AccountObject payload = mapper.readValue(req.getInputStream(), AccountObject.class);
+        //AccountStore.updateAccount(payload);
+        resp.setStatus(203);
+        resp.getWriter().print("There has been a change to the accounts information.");
     }
 
     @Override

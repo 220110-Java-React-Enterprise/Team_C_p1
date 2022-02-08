@@ -1,5 +1,6 @@
 package servlets;
 
+import User.UserObject;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import Comment.CommentObject;
 import Comment.CommentStore;
@@ -32,7 +33,11 @@ public class CommentServlet extends HttpServlet {
 
     @Override
     protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        super.doPut(req, resp);
+        ObjectMapper mapper = new ObjectMapper();
+        CommentObject payload = mapper.readValue(req.getInputStream(), CommentObject.class);
+        //CommentStore.updateComment(payload);
+        resp.setStatus(203);
+        resp.getWriter().print("There has been a change to the comment.");
     }
 
     @Override

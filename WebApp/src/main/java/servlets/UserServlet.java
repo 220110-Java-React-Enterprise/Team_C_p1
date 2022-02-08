@@ -34,7 +34,11 @@ public class UserServlet extends HttpServlet {
 
     @Override
     protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        super.doPut(req, resp);
+        ObjectMapper mapper = new ObjectMapper();
+        UserObject payload = mapper.readValue(req.getInputStream(), UserObject.class);
+        //UserStore.updateUser(payload);
+        resp.setStatus(203);
+        resp.getWriter().print("There has been a change to the users information.");
     }
 
     @Override
