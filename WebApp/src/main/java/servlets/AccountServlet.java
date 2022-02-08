@@ -3,9 +3,12 @@ package servlets;
 import Comment.CommentStore;
 import Post.PostObject;
 import User.UserObject;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import Account.AccountObject;
 import Account.AccountStore;
+import exceptions.CustomException;
+import utils.FileLogger;
 
 
 import javax.servlet.ServletException;
@@ -16,12 +19,21 @@ import java.io.IOException;
 
 public class AccountServlet extends HttpServlet {
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        AccountObject accountObj = AccountStore.getAccountObj();
-        ObjectMapper mapper = new ObjectMapper();
-        String Json = mapper.writeValueAsString(accountObj);
-        resp.getWriter().print(Json);
-        resp.setStatus(200);
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws CustomException {
+        try {
+            AccountObject accountObj = AccountStore.getAccountObj();
+            ObjectMapper mapper = new ObjectMapper();
+            String Json = mapper.writeValueAsString(accountObj);
+            resp.getWriter().print(Json);
+            resp.setStatus(200);
+        } catch (JsonProcessingException e) {
+            throw new CustomException("This account does not seem to exist!");
+        } catch (IOException e) {
+            e.printStackTrace();
+            FileLogger.getFileLogger().log(e);
+            resp.setStatus(500);
+        }
+
     }
 
     @Override
