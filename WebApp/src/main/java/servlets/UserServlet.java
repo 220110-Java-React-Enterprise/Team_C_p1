@@ -29,6 +29,7 @@ public class UserServlet extends HttpServlet {
         UserObject payload = mapper.readValue(req.getInputStream(), UserObject.class);
         UserStore.setUserObject(payload);
         resp.setStatus(203);
+        resp.getWriter().print("User has been created.");
     }
 
     @Override
@@ -38,6 +39,8 @@ public class UserServlet extends HttpServlet {
 
     @Override
     protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        super.doDelete(req, resp);
+        UserStore.setUserObject(null);
+        resp.setStatus(203);
+        resp.getWriter().print("User has been deleted.");
     }
 }
