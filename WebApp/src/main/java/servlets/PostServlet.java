@@ -1,5 +1,6 @@
 package servlets;
 
+import Account.AccountStore;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import Post.PostObject;
 import Post.PostStore;
@@ -26,6 +27,7 @@ public class PostServlet extends HttpServlet {
         PostObject payload = mapper.readValue(req.getInputStream(), PostObject.class);
         PostStore.setPostObj(payload);
         resp.setStatus(203);
+        resp.getWriter().print("User has added a new post.");
     }
 
     @Override
@@ -35,6 +37,8 @@ public class PostServlet extends HttpServlet {
 
     @Override
     protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        super.doDelete(req, resp);
+        PostStore.setPostObj(null);
+        resp.setStatus(203);
+        resp.getWriter().print("Post has been deleted.");
     }
 }

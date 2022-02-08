@@ -27,6 +27,7 @@ public class CommentServlet extends HttpServlet {
         CommentObject payload = mapper.readValue(req.getInputStream(), CommentObject.class);
         CommentStore.setCommentObj(payload);
         resp.setStatus(203);
+        resp.getWriter().print("New comment added to post.");
     }
 
     @Override
@@ -36,6 +37,8 @@ public class CommentServlet extends HttpServlet {
 
     @Override
     protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        super.doDelete(req, resp);
+        CommentStore.setCommentObj(null);
+        resp.setStatus(203);
+        resp.getWriter().print("Comment has been deleted.");
     }
 }

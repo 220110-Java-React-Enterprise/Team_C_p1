@@ -1,5 +1,6 @@
 package servlets;
 
+import Comment.CommentStore;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import Account.AccountObject;
 import Account.AccountStore;
@@ -27,6 +28,7 @@ public class AccountServlet extends HttpServlet {
         AccountObject payload = mapper.readValue(req.getInputStream(), AccountObject.class);
         AccountStore.setAccountObj(payload);
         resp.setStatus(203);
+        resp.getWriter().print("Account successfully created.");
     }
 
     @Override
@@ -36,6 +38,8 @@ public class AccountServlet extends HttpServlet {
 
     @Override
     protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        super.doDelete(req, resp);
+        AccountStore.setAccountObj(null);
+        resp.setStatus(203);
+        resp.getWriter().print("Account has been deleted.");
     }
 }
