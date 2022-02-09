@@ -13,7 +13,7 @@ public class Main {
 
     UserObject user = new UserObject();
 //        System.out.println(sqlScript.readSQLTable(user));
-       
+
         System.out.println(sqlScript.updateSQLTable(user,"userId"));
     }
 
