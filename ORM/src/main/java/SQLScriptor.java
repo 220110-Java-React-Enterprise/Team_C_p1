@@ -9,7 +9,7 @@ public class SQLScriptor implements CRUD<Object>{
     @Override
     public String createSQLTable(Object o) {
         sb.append("CREATE TABLE ");
-        String className = o.getClass().getCanonicalName();
+        String className = o.getClass().getSimpleName();
         sb.append(className);
         sb.append(" (");
 
@@ -41,7 +41,7 @@ public class SQLScriptor implements CRUD<Object>{
     @Override
     public String insertSQLByTableId(Object o) {
         sb.append("INSERT INTO ");
-        String tableName = o.getClass().getCanonicalName();
+        String tableName = o.getClass().getSimpleName();
         sb.append(tableName);
         sb.append(" (");
         Field[] fields = o.getClass().getDeclaredFields();
@@ -69,7 +69,7 @@ public class SQLScriptor implements CRUD<Object>{
     @Override
     public String readSQLTable(Object o) {
         sb.append("SELECT * FROM ");
-        String tableName = o.getClass().getCanonicalName();
+        String tableName = o.getClass().getSimpleName();
         sb.append(tableName);
         sb.append(" WHERE ");
         Field[] fields = o.getClass().getDeclaredFields();
@@ -89,7 +89,7 @@ public class SQLScriptor implements CRUD<Object>{
 
 //        "UPDATE customers SET account_id = ? WHERE customer_id = ?"
             sb.append("UPDATE ");
-            String tableName  = o.getClass().getCanonicalName();
+            String tableName  = o.getClass().getSimpleName();
             sb.append(tableName);
             sb.append(" SET ");
             sb.append(columnName);
@@ -120,7 +120,7 @@ public class SQLScriptor implements CRUD<Object>{
 
        // DELETE FROM Customers WHERE CustomerName='Alfreds Futterkiste'
         sb.append("DELETE FROM ");
-        String tableName  = o.getClass().getCanonicalName();
+        String tableName  = o.getClass().getSimpleName();
         sb.append(tableName);
         sb.append(" WHERE ");
 
