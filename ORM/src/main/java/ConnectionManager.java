@@ -33,7 +33,6 @@ public class ConnectionManager {
             FileReader fr = new FileReader("src/main/resources/jdbc.properties");
             props.load(fr);
 //            jdbc:mariadb://hostname:port/databaseName?user=username&password=password
-
             String connectionURL = "jdbc:mariadb://" +
                     props.get("hostname") + ":" +
                     props.get("port") + "/" +
