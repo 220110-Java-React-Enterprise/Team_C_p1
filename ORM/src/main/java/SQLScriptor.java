@@ -107,13 +107,13 @@ public class SQLScriptor implements CRUD<Object>{
     }
 
 
-
+//deleteSQL mehtod deletes a customer by user input. method is updated in CRUD. user input is updated in Main.
     @Override
     public String deleteSQLTable(Object o) {
         this.o = o;
         this.columnName = columnName;
 
-//        "DELETE customers SET account_id = ? WHERE customer_id = ?"
+//"DELETE customers SET account_id = ? WHERE customer_id = ?"
         sb.append("DELETE ");
         String tableName  = o.getClass().getCanonicalName();
         sb.append(tableName);
