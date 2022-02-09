@@ -116,7 +116,8 @@ public class SQLScriptor implements CRUD<Object>{
 //"DELETE customers SET account_id = ? WHERE customer_id = ?"
         sb.append("DELETE ");
         String tableName  = o.getClass().getCanonicalName();
-        sb.append(tableName);
+        char[] userId = new char[0];
+        StringBuilder append = sb.append(userId);
         sb.append(" SET ");
         sb.append(columnName);
         sb.append(" = ? WHERE ");
