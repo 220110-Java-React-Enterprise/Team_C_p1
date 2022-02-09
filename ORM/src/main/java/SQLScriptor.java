@@ -1,9 +1,10 @@
+import javax.naming.InsufficientResourcesException;
 import java.lang.reflect.Field;
 
 public class SQLScriptor implements CRUD<Object>{
     StringBuilder sb = new StringBuilder();
-    private Object o;
-    private String columnName;
+   // private Object o;
+    //private String columnName;
 
     @Override
     public String createSQLTable(Object o) {
@@ -83,7 +84,17 @@ public class SQLScriptor implements CRUD<Object>{
     }
 
     @Override
-    public String updateSQLTable(Object o, String columnName) {
+    public String updateSQLTable(Object o, String input) {
+        return null;
+    }
+
+    @Override
+    public String deleteSQLTable(Object o) {
+        return null;
+    }
+
+
+    public String updateSQLTable(Object o, String columnName, String update) {
 
 //        "UPDATE customers SET account_id = ? WHERE customer_id = ?"
             sb.append("UPDATE ");
@@ -91,7 +102,9 @@ public class SQLScriptor implements CRUD<Object>{
             sb.append(tableName);
             sb.append(" SET ");
             sb.append(columnName);
-            sb.append(" = ? WHERE ");
+            sb.append(" = ");
+            sb.append(update);
+            sb.append("WHERE ");
 
         Field[] fields = o.getClass().getDeclaredFields();
         for(Field field: fields){
@@ -108,19 +121,17 @@ public class SQLScriptor implements CRUD<Object>{
 
 
 //deleteSQL mehtod deletes a customer by user input. method is updated in CRUD. user input is updated in Main.
-    @Override
-    public String deleteSQLTable(Object o) {
-        this.o = o;
-        this.columnName = columnName;
 
-//"DELETE customers SET account_id = ? WHERE customer_id = ?"
-        sb.append("DELETE ");
+    public String deleteSQLTable(Object o, Integer id) {
+        //this.o = o;
+       // this.columnName = columnName;
+
+
+       // DELETE FROM Customers WHERE CustomerName='Alfreds Futterkiste'
+        sb.append("DELETE FROM ");
         String tableName  = o.getClass().getCanonicalName();
-        char[] userId = new char[0];
-        StringBuilder append = sb.append(userId);
-        sb.append(" SET ");
-        sb.append(columnName);
-        sb.append(" = ? WHERE ");
+        sb.append(tableName);
+        sb.append(" WHERE ");
 
         Field[] fields = o.getClass().getDeclaredFields();
         for(Field field: fields){
