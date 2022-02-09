@@ -56,9 +56,9 @@ public class SQLScriptor implements CRUD<Object>{
         sb.append(") VALUES (");
         for(int i = 0; i < fields.length;i++) {
             if (i == (fields.length - 1)) {
-                sb.append(" ?");
+                sb.append("?");
             } else {
-                sb.append(" ?,");
+                sb.append("?,");
             }
         }
         String lastPart = ");";
@@ -83,18 +83,9 @@ public class SQLScriptor implements CRUD<Object>{
         return sb.toString();
     }
 
-    @Override
-    public String updateSQLTable(Object o, String input) {
-        return null;
-    }
 
-    @Override
-    public String deleteSQLTable(Object o) {
-        return null;
-    }
-
-
-    public String updateSQLTable(Object o, String columnName, String update) {
+@Override
+    public String updateSQLTable(Object o, String columnName){
 
 //        "UPDATE customers SET account_id = ? WHERE customer_id = ?"
             sb.append("UPDATE ");
@@ -102,9 +93,9 @@ public class SQLScriptor implements CRUD<Object>{
             sb.append(tableName);
             sb.append(" SET ");
             sb.append(columnName);
-            sb.append(" = ");
-            sb.append(update);
-            sb.append("WHERE ");
+            sb.append(" = ?");
+//            sb.append(update);
+            sb.append(" WHERE ");
 
         Field[] fields = o.getClass().getDeclaredFields();
         for(Field field: fields){
@@ -121,8 +112,8 @@ public class SQLScriptor implements CRUD<Object>{
 
 
 //deleteSQL mehtod deletes a customer by user input. method is updated in CRUD. user input is updated in Main.
-
-    public String deleteSQLTable(Object o, Integer id) {
+@Override
+    public String deleteSQLTable(Object o) {
         //this.o = o;
        // this.columnName = columnName;
 
