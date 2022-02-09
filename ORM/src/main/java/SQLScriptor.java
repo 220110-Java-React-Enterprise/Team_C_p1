@@ -81,7 +81,6 @@ public class SQLScriptor implements CRUD<Object>{
 
     @Override
     public String updateSQLTable(Object o, String columnName) {
-
 //        "UPDATE customers SET account_id = ? WHERE customer_id = ?"
             sb.append("UPDATE ");
             String tableName  = o.getClass().getCanonicalName();
@@ -93,13 +92,10 @@ public class SQLScriptor implements CRUD<Object>{
         Field[] fields = o.getClass().getDeclaredFields();
         for(Field field: fields){
             if(field.isAnnotationPresent(CustomFieldAnnotation.class)){
-
                 sb.append(field.getName());
             }
         }
-
         sb.append(" = ?;");
-
         return sb.toString();
     }
 
