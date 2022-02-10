@@ -1,7 +1,11 @@
 package Post;
 
+import ORM.CustomFieldAnnotation;
+
 public class PostObject {
+    @CustomFieldAnnotation(fieldName = "pk")
     private Integer postId;
+
     private String title;
     private String description;
     private Integer accountId; //(FK)

@@ -1,7 +1,12 @@
 package Comment;
 
+import ORM.CustomFieldAnnotation;
+
 public class CommentObject {
+
+    @CustomFieldAnnotation(fieldName = "pk")
     private Integer commentId;
+
     private String message;
     private Integer postId;//(FK)
 

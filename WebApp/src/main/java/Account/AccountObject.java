@@ -1,6 +1,11 @@
 package Account;
 
+import ORM.CustomFieldAnnotation;
+
 public class AccountObject {
+    @CustomFieldAnnotation(fieldName = "pk")
+    private Integer accountId;
+
     private String userName;
     private String email;
     private String password;
