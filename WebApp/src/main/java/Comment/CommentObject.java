@@ -1,10 +1,9 @@
-package utils;
+package Comment;
 
 public class CommentObject {
     private Integer commentId;
     private String message;
     private Integer postId;//(FK)
-
 
     public CommentObject() {
     }

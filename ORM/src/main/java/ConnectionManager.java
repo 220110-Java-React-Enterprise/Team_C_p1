@@ -33,14 +33,13 @@ public class ConnectionManager {
             FileReader fr = new FileReader("src/main/resources/jdbc.properties");
             props.load(fr);
 //            jdbc:mariadb://hostname:port/databaseName?user=username&password=password
-
             String connectionURL = "jdbc:mariadb://" +
                     props.get("hostname") + ":" +
                     props.get("port") + "/" +
                     props.get("dbname") + "?user=" +
                     props.get("username") + "&password=" +
                     props.get("password");
-//         Class.forName("org.mariadb.jdbc.Driver");
+         Class.forName("org.mariadb.jdbc.Driver");
             connection = DriverManager.getConnection(connectionURL);
 //            System.out.println(connectionURL);
         } catch (Exception e){

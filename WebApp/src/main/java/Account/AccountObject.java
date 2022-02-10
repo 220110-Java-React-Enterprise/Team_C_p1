@@ -1,10 +1,9 @@
-package utils;
+package Account;
 
 public class AccountObject {
     private String userName;
     private String email;
     private String password;
-
 
     public AccountObject(){
 

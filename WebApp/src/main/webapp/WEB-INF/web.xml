@@ -12,7 +12,7 @@
         version="2.5">
 
     <listener>
-        <listener-class>servlets.DependencyLoaderListener</listener-class>
+        <listener-class>utils.DependencyLoaderListener</listener-class>
     </listener>
     <servlet>
         <servlet-name>userServlet</servlet-name>

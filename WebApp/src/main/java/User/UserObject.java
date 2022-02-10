@@ -1,4 +1,4 @@
-package utils;
+package User;
 
 public class UserObject {
     private Integer userId;//(PK)

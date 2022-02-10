@@ -2,6 +2,7 @@ public class User {
 
     @CustomFieldAnnotation(fieldName = "pk")
     private Integer userId;
+
     private String firstName;
     private String lastname;
     private Integer accountId;

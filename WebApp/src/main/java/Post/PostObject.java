@@ -1,4 +1,4 @@
-package utils;
+package Post;
 
 public class PostObject {
     private Integer postId;

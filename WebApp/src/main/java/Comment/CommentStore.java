@@ -1,4 +1,4 @@
-package utils;
+package Comment;
 
 public class CommentStore {
     private static CommentObject commentObj;
