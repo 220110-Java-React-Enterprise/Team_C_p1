@@ -20,7 +20,6 @@ public class UserServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws CustomException {
 //        super.doGet(req, resp);
         // we want to reach the database using our user object
-
         try {
             List<UserObject> users = repo.read(new UserObject());
             ObjectMapper mapper = new ObjectMapper();
