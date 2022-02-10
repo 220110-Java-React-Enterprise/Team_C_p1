@@ -7,7 +7,7 @@ public interface CRUD<T> {
 
     public String readSQLTable(T t);
 
-    public String updateSQLTable(T t);
+    public String updateSQLTable(Object o, String userId);
 
     public String deleteSQLTable(T t);
 

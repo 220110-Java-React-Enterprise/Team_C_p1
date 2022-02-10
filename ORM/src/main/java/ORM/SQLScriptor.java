@@ -1,12 +1,10 @@
 package ORM;
 
-import ORM.CustomFieldAnnotation;
-
 import java.lang.reflect.Field;
 
 public class SQLScriptor implements CRUD<Object> {
 
-   // private Object o;
+    // private Object o;
     //private String columnName;
 
     @Override
@@ -107,33 +105,33 @@ public class SQLScriptor implements CRUD<Object> {
     }
 
 
-@Override
-    public String updateSQLTable(Object o){
-    StringBuilder sb = new StringBuilder();
+    @Override
+    public String updateSQLTable(Object o, String userId){
+        StringBuilder sb = new StringBuilder();
 
 //        "UPDATE customers SET account_id = ? WHERE customer_id = ?"
 
-            sb.append("UPDATE ");
-            String tableName  = o.getClass().getSimpleName();
-            sb.append(tableName);
-            sb.append(" SET ");
+        sb.append("UPDATE ");
+        String tableName  = o.getClass().getSimpleName();
+        sb.append(tableName);
+        sb.append(" SET ");
 
-                String primaryKey = "";
+        String primaryKey = "";
         Field[] fields = o.getClass().getDeclaredFields();
-    for( int i = 0; i < fields.length; i++) {
-        if(!fields[i].isAnnotationPresent(CustomFieldAnnotation.class)) {
-            if (i == fields.length - 1) {
-                sb.append(fields[i].getName()+"= ? ");
+        for( int i = 0; i < fields.length; i++) {
+            if(!fields[i].isAnnotationPresent(CustomFieldAnnotation.class)) {
+                if (i == fields.length - 1) {
+                    sb.append(fields[i].getName()+"= ? ");
+                } else {
+                    sb.append(fields[i].getName() + " = ? , ");
+                }
             } else {
-                sb.append(fields[i].getName() + " = ? , ");
+                primaryKey = fields[i].getName();
             }
-        } else {
-            primaryKey = fields[i].getName();
         }
-    }
 
-    sb.append(" WHERE ");
-    sb.append(primaryKey);
+        sb.append(" WHERE ");
+        sb.append(primaryKey);
 
         sb.append(" = ?;");
 
@@ -141,14 +139,14 @@ public class SQLScriptor implements CRUD<Object> {
     }
 
 
-//deleteSQL mehtod deletes a customer by user input. method is updated in ORM.CRUD. user input is updated in Main.
-@Override
+    //deleteSQL mehtod deletes a customer by user input. method is updated in ORM.CRUD. user input is updated in Main.
+    @Override
     public String deleteSQLTable(Object o) {
         //this.o = o;
-       // this.columnName = columnName;
-    StringBuilder sb = new StringBuilder();
+        // this.columnName = columnName;
+        StringBuilder sb = new StringBuilder();
 
-       // DELETE FROM Customers WHERE CustomerName='Alfreds Futterkiste'
+        // DELETE FROM Customers WHERE CustomerName='Alfreds Futterkiste'
         sb.append("DELETE FROM ");
         String tableName  = o.getClass().getSimpleName();
         sb.append(tableName);
@@ -168,4 +166,4 @@ public class SQLScriptor implements CRUD<Object> {
     }
 
 
-    }
+}
