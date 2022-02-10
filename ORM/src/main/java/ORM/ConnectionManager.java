@@ -1,4 +1,6 @@
-import java.io.FileReader;
+package ORM;
+
+import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.util.Properties;
@@ -30,8 +32,15 @@ public class ConnectionManager {
     public static Connection connect(){
         try {
             Properties props = new Properties();
-            FileReader fr = new FileReader("src/main/resources/jdbc.properties");
-            props.load(fr);
+//            FileReader fr = new FileReader("src/main/resources/jdbc.properties");
+//            props.load(fr);
+
+            ClassLoader loader = Thread.currentThread().getContextClassLoader();
+            InputStream input = loader.getResourceAsStream("jdbc.properties");
+            props.load(input);
+
+
+
 //            jdbc:mariadb://hostname:port/databaseName?user=username&password=password
             String connectionURL = "jdbc:mariadb://" +
                     props.get("hostname") + ":" +

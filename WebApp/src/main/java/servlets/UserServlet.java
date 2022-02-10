@@ -1,26 +1,30 @@
 package servlets;
 
+import Persistence.UserRepo;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import User.UserObject;
-import User.UserStore;
 import exceptions.CustomException;
 import utils.FileLogger;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.List;
 
 public class UserServlet extends HttpServlet {
+
+    UserRepo repo = new UserRepo();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws CustomException {
 //        super.doGet(req, resp);
         // we want to reach the database using our user object
+
         try {
-            UserObject newUser = UserStore.getUserObject();
+            List<UserObject> users = repo.read(new UserObject());
             ObjectMapper mapper = new ObjectMapper();
-            String Json = mapper.writeValueAsString(newUser);
+            String Json = mapper.writeValueAsString(users);
             resp.getWriter().print(Json);
             resp.setStatus(200);
         } catch (JsonProcessingException e) {
@@ -38,7 +42,7 @@ public class UserServlet extends HttpServlet {
         try {
             ObjectMapper mapper = new ObjectMapper();
             UserObject payload = mapper.readValue(req.getInputStream(), UserObject.class);
-            UserStore.setUserObject(payload);
+            repo.insert(payload);
             resp.setStatus(203);
             resp.getWriter().print("User has been created.");
         } catch (JsonProcessingException e) {
@@ -56,7 +60,7 @@ public class UserServlet extends HttpServlet {
         try {
             ObjectMapper mapper = new ObjectMapper();
             UserObject payload = mapper.readValue(req.getInputStream(), UserObject.class);
-            UserStore.setUserObject(payload);
+            repo.update(payload);
             resp.setStatus(203);
             resp.getWriter().print("There has been a change to the users information.");
         } catch (JsonProcessingException e) {
@@ -72,7 +76,9 @@ public class UserServlet extends HttpServlet {
     @Override
     protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws CustomException {
         try {
-            UserStore.setUserObject(null);
+            ObjectMapper mapper = new ObjectMapper();
+            UserObject payload = mapper.readValue(req.getInputStream(), UserObject.class);
+            repo.delete(payload);
             resp.setStatus(203);
             resp.getWriter().print("User has been deleted.");
         } catch (JsonProcessingException e) {
