@@ -62,7 +62,7 @@ public class CommentServlet extends HttpServlet {
         try {
             ObjectMapper mapper = new ObjectMapper();
             CommentObject payload = mapper.readValue(req.getInputStream(), CommentObject.class);
-            repo.insert(payload);
+            repo.update(payload);
             resp.setStatus(203);
             resp.getWriter().print("There has been a change to the comment.");
         } catch (JsonProcessingException e) {
@@ -79,7 +79,7 @@ public class CommentServlet extends HttpServlet {
         try {
             ObjectMapper mapper = new ObjectMapper();
             CommentObject payload = mapper.readValue(req.getInputStream(), CommentObject.class);
-            repo.insert(payload);
+            repo.delete(payload);
         } catch (JsonProcessingException e) {
             throw new CustomException("This request cannot be made.");
         } catch (IOException e) {

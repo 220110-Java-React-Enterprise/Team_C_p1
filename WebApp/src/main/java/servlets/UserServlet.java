@@ -70,7 +70,6 @@ public class UserServlet extends HttpServlet {
             FileLogger.getFileLogger().log(e);
             resp.setStatus(500);
         }
-
     }
 
     @Override

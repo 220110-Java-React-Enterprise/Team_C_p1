@@ -51,7 +51,6 @@ public class AccountServlet extends HttpServlet {
             FileLogger.getFileLogger().log(e);
             resp.setStatus(500);
         }
-
     }
 
     @Override
@@ -59,7 +58,7 @@ public class AccountServlet extends HttpServlet {
         try{
             ObjectMapper mapper = new ObjectMapper();
             AccountObject payload = mapper.readValue(req.getInputStream(), AccountObject.class);
-            repo.insert(payload);
+            repo.update(payload);
             resp.setStatus(203);
             resp.getWriter().print("There has been a change to the accounts information.");
         } catch (JsonProcessingException e) {
@@ -76,7 +75,7 @@ public class AccountServlet extends HttpServlet {
         try{
             ObjectMapper mapper = new ObjectMapper();
             AccountObject payload = mapper.readValue(req.getInputStream(), AccountObject.class);
-            repo.insert(payload);
+            repo.delete(payload);
         } catch (JsonProcessingException e) {
             throw new CustomException("This request cannot be made.");
         } catch (IOException e) {
