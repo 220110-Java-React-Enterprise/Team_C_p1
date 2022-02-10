@@ -2,63 +2,89 @@ import javax.naming.InsufficientResourcesException;
 import java.lang.reflect.Field;
 
 public class SQLScriptor implements CRUD<Object>{
-    StringBuilder sb = new StringBuilder();
+
    // private Object o;
     //private String columnName;
 
     @Override
     public String createSQLTable(Object o) {
+        StringBuilder sb = new StringBuilder();
+
         sb.append("CREATE TABLE ");
         String className = o.getClass().getSimpleName();
         sb.append(className);
         sb.append(" (");
 
         Field[] fields = o.getClass().getDeclaredFields();
+
+
         for( int i = 0; i < fields.length; i++) {
-            if (fields[i].getType().getSimpleName().equals("Integer")) {
-                String intString;
-                if (i == fields.length - 1) {
-                    intString = fields[i].getName() + " int";
-                } else {
-                    intString = fields[i].getName() + " int, ";
+            if(fields[i].isAnnotationPresent(CustomFieldAnnotation.class)){
+
+                if(fields[i].getAnnotation(CustomFieldAnnotation.class).fieldName().equals("pk")) {
+                    String intString;
+                    if (i == fields.length - 1) {
+                        intString = fields[i].getName() + " int auto_increment not null,";
+                        intString += "CONSTRAINT "+o.getClass().getSimpleName()+"_pk PRIMARY KEY ("+fields[i].getName()+")";
+                    } else {
+                        intString = fields[i].getName() + " int auto_increment not null, ";
+                        intString += "CONSTRAINT "+o.getClass().getSimpleName()+"_pk PRIMARY KEY ("+fields[i].getName()+"),";
+                    }
+
+                    sb.append(intString);
                 }
-                sb.append(intString);
-            }
-            if (fields[i].getType().getSimpleName().equals("String")) {
-                String varString;
-                if (i == fields.length - 1) {
-                    varString = fields[i].getName() + " varchar(30)";
-                } else {
-                    varString = fields[i].getName() + " varchar(30), ";
+            } else {
+                if (fields[i].getType().getSimpleName().equals("Integer")) {
+                    String intString;
+                    if (i == fields.length - 1) {
+                        intString = fields[i].getName() + " int";
+                    } else {
+                        intString = fields[i].getName() + " int, ";
+                    }
+                    sb.append(intString);
                 }
-                sb.append(varString);
+                if (fields[i].getType().getSimpleName().equals("String")) {
+                    String varString;
+                    if (i == fields.length - 1) {
+                        varString = fields[i].getName() + " varchar(30)";
+                    } else {
+                        varString = fields[i].getName() + " varchar(30), ";
+                    }
+                    sb.append(varString);
+                }
             }
+
         }
         sb.append(");");
+        System.out.println(sb.toString());
         return sb.toString();
     }
 
     @Override
     public String insertSQLByTableId(Object o) {
+        StringBuilder sb = new StringBuilder();
         sb.append("INSERT INTO ");
         String tableName = o.getClass().getSimpleName();
         sb.append(tableName);
         sb.append(" (");
         Field[] fields = o.getClass().getDeclaredFields();
         for( int i = 0; i < fields.length; i++) {
+            if(!fields[i].isAnnotationPresent(CustomFieldAnnotation.class)) {
                 if (i == fields.length - 1) {
                     sb.append(fields[i].getName());
                 } else {
                     sb.append(fields[i].getName() + ", ");
-
                 }
             }
+        }
         sb.append(") VALUES (");
         for(int i = 0; i < fields.length;i++) {
-            if (i == (fields.length - 1)) {
-                sb.append("?");
-            } else {
-                sb.append("?,");
+            if(!fields[i].isAnnotationPresent(CustomFieldAnnotation.class)) {
+                if (i == (fields.length - 1)) {
+                    sb.append("?");
+                } else {
+                    sb.append("?,");
+                }
             }
         }
         String lastPart = ");";
@@ -68,42 +94,43 @@ public class SQLScriptor implements CRUD<Object>{
 
     @Override
     public String readSQLTable(Object o) {
+        StringBuilder sb = new StringBuilder();
+
         sb.append("SELECT * FROM ");
         String tableName = o.getClass().getSimpleName();
         sb.append(tableName);
-        sb.append(" WHERE ");
-        Field[] fields = o.getClass().getDeclaredFields();
-        for(Field field: fields){
-            if(field.isAnnotationPresent(CustomFieldAnnotation.class)){
 
-                sb.append(field.getName());
-            }
-        }
-        sb.append(" = ?;");
         return sb.toString();
     }
 
 
 @Override
-    public String updateSQLTable(Object o, String columnName){
+    public String updateSQLTable(Object o){
+    StringBuilder sb = new StringBuilder();
 
 //        "UPDATE customers SET account_id = ? WHERE customer_id = ?"
+
             sb.append("UPDATE ");
             String tableName  = o.getClass().getSimpleName();
             sb.append(tableName);
             sb.append(" SET ");
-            sb.append(columnName);
-            sb.append(" = ?");
-//            sb.append(update);
-            sb.append(" WHERE ");
 
+                String primaryKey = "";
         Field[] fields = o.getClass().getDeclaredFields();
-        for(Field field: fields){
-            if(field.isAnnotationPresent(CustomFieldAnnotation.class)){
-
-                sb.append(field.getName());
+    for( int i = 0; i < fields.length; i++) {
+        if(!fields[i].isAnnotationPresent(CustomFieldAnnotation.class)) {
+            if (i == fields.length - 1) {
+                sb.append(fields[i].getName()+"= ? ");
+            } else {
+                sb.append(fields[i].getName() + " = ? , ");
             }
+        } else {
+            primaryKey = fields[i].getName();
         }
+    }
+
+    sb.append(" WHERE ");
+    sb.append(primaryKey);
 
         sb.append(" = ?;");
 
@@ -116,7 +143,7 @@ public class SQLScriptor implements CRUD<Object>{
     public String deleteSQLTable(Object o) {
         //this.o = o;
        // this.columnName = columnName;
-
+    StringBuilder sb = new StringBuilder();
 
        // DELETE FROM Customers WHERE CustomerName='Alfreds Futterkiste'
         sb.append("DELETE FROM ");
