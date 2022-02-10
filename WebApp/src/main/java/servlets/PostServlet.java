@@ -1,15 +1,11 @@
 package servlets;
 
-import Account.AccountStore;
-import User.UserObject;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import Post.PostObject;
-import Post.PostStore;
 import exceptions.CustomException;
 import utils.FileLogger;
 
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;

@@ -1,3 +1,5 @@
+package ORM;
+
 public interface CRUD<T> {
     public String createSQLTable(T t);
 

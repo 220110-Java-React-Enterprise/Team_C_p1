@@ -3,7 +3,6 @@ package servlets;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import User.UserObject;
-import User.UserStore;
 import exceptions.CustomException;
 import utils.FileLogger;
 import javax.servlet.http.HttpServlet;

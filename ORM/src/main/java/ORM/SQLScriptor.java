@@ -1,7 +1,10 @@
-import javax.naming.InsufficientResourcesException;
+package ORM;
+
+import ORM.CustomFieldAnnotation;
+
 import java.lang.reflect.Field;
 
-public class SQLScriptor implements CRUD<Object>{
+public class SQLScriptor implements CRUD<Object> {
 
    // private Object o;
     //private String columnName;
@@ -138,7 +141,7 @@ public class SQLScriptor implements CRUD<Object>{
     }
 
 
-//deleteSQL mehtod deletes a customer by user input. method is updated in CRUD. user input is updated in Main.
+//deleteSQL mehtod deletes a customer by user input. method is updated in ORM.CRUD. user input is updated in Main.
 @Override
     public String deleteSQLTable(Object o) {
         //this.o = o;
