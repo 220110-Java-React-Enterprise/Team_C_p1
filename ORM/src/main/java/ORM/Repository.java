@@ -108,7 +108,7 @@ public class Repository {
 
         try {
 
-            PreparedStatement pstmt = connection.prepareStatement(sqlScriptor.updateSQLTable(o, "userId"));
+            PreparedStatement pstmt = connection.prepareStatement(sqlScriptor.updateSQLTable(o));
             Field[] fields = o.getClass().getDeclaredFields();
             int i;
             for(i = 0; i<fields.length;i++){

@@ -1,5 +1,7 @@
 package ORM;
 
+import ORM.CustomFieldAnnotation;
+
 import java.lang.reflect.Field;
 
 public class SQLScriptor implements CRUD<Object> {
@@ -106,7 +108,7 @@ public class SQLScriptor implements CRUD<Object> {
 
 
     @Override
-    public String updateSQLTable(Object o, String userId){
+    public String updateSQLTable(Object o){
         StringBuilder sb = new StringBuilder();
 
 //        "UPDATE customers SET account_id = ? WHERE customer_id = ?"
