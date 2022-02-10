@@ -1,7 +1,11 @@
 package User;
 
+import ORM.CustomFieldAnnotation;
+
 public class UserObject {
+    @CustomFieldAnnotation(fieldName = "pk")
     private Integer userId;//(PK)
+
     private String firstName;
     private String lastName;
     private Integer age;
