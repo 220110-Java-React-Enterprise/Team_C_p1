@@ -1,3 +1,4 @@
+import ORM.SQLScriptor;
 import utils.FileLogger;
 
 import java.sql.SQLException;
@@ -9,12 +10,12 @@ public class Main {
 //        System.out.println("This is working!!!!!!!!!!");
 //        logMessage("This is our message");
 //        methodOne();
-       SQLScriptor sqlScript = new SQLScriptor();
+       //SQLScriptor sqlScript = new SQLScriptor();
 
-    UserObject user = new UserObject();
+    //UserObject user = new UserObject();
 //        System.out.println(sqlScript.readSQLTable(user));
 
-        System.out.println(sqlScript.updateSQLTable(user,"userId"));
+        //System.out.println(sqlScript.updateSQLTable(user,"userId"));
     }
 
 
